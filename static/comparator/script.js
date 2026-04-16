@@ -23,9 +23,9 @@ function cssVar(name) {
 function syncColorsToTheme() {
     colors.wall = cssVar('--wall');
     colors.path = cssVar('--paper');
-    colors.visited = cssVar('--trace');
+    colors.visited = '#0ea5e9';    // Sky Blue for grid exploration
     colors.optimal = cssVar('--accent');
-    colors.finalPath = cssVar('--final-path');
+    colors.finalPath = '#f59e0b';  // Vibrant Orange/Amber for the final winning solved route
     colors.start = cssVar('--go');
     colors.end = cssVar('--stop');
 }
@@ -146,25 +146,11 @@ function drawMazeOptimized(algoIndex) {
     });
     
     if (algo.status === 'Finished' && algo.path) {
-        const pathAnim = pathAnimations[algoIndex];
-        algo.path.forEach(p => {
-            const [c, r] = p;
-            const key = `${c},${r}`;
-            const startAt = pathAnim.get(key);
-            if (startAt) {
-                const elapsed = now - startAt;
-                if (elapsed < 260) {
-                    drawCellPop(ctx, c, r, colors.finalPath, elapsed, 260, 1.3);
-                } else {
-                    ctx.fillStyle = colors.finalPath;
-                    ctx.fillRect(c, r, 1, 1);
-                    pathAnim.delete(key);
-                }
-            } else {
-                ctx.fillStyle = colors.finalPath;
-                ctx.fillRect(c, r, 1, 1);
-            }
-        });
+        ctx.fillStyle = colors.finalPath;
+        for (let i = 0; i < algo.path.length; i++) {
+            const [c, r] = algo.path[i];
+            ctx.fillRect(c, r, 1, 1);
+        }
     }
     
     ctx.fillStyle = colors.start;
@@ -176,12 +162,16 @@ function drawMazeOptimized(algoIndex) {
 
 function updateLeaderboard() {
     const list = document.getElementById('leaderboard-list');
+    const exportBtn = document.getElementById('btn-export-csv');
     
     const finishedAlgos = algorithms.filter(a => a.status === 'Finished');
     if (finishedAlgos.length === 0) {
         list.innerHTML = `<div style="color:var(--text-secondary); text-align:center;">Results will appear here as algorithms finish.</div>`;
+        if (exportBtn) exportBtn.style.display = 'none';
         return;
     }
+    
+    if (exportBtn) exportBtn.style.display = 'block';
     
     const sorted = [...finishedAlgos].sort((a,b) => a.time - b.time);
     const sortedBySteps = [...finishedAlgos.filter(a => a.path && a.path.length > 0)].sort((a,b) => a.path.length - b.path.length);
@@ -308,6 +298,28 @@ document.getElementById('btn-new-maze').onclick = async () => {
     btn.innerText = 'Generate New Maze';
     btn.disabled = false;
 };
+
+const exportBtnRef = document.getElementById('btn-export-csv');
+if (exportBtnRef) {
+    exportBtnRef.onclick = () => {
+        let csv = "Rank,Algorithm,Time (s),Path Length,Nodes Explored\n";
+        const finishedAlgos = algorithms.filter(a => a.status === 'Finished');
+        const sorted = [...finishedAlgos].sort((a,b) => a.time - b.time);
+        
+        sorted.forEach((algo, i) => {
+            let pathLen = algo.path && algo.path.length > 0 ? algo.path.length : 'N/A';
+            csv += `${i+1},"${algo.name}",${algo.time.toFixed(5)},${pathLen},${algo.visited_sequence.length}\n`;
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'pathmind_comparison_results.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+}
 
 document.getElementById('btn-theme-toggle').onclick = () => {
     document.body.classList.toggle('dark');

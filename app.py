@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import time, sys
 sys.setrecursionlimit(1000)
 
-from src import bfs, dfs, ucs, dls, astar, greedy
+from src import bfs, dfs, ucs, dls, astar, greedy, bibfs
 
 from comparator_logic.algorithm.bfs import solve as bfs_solve_compare
 from comparator_logic.algorithm.dfs import solve as dfs_solve_compare
@@ -10,6 +10,7 @@ from comparator_logic.algorithm.a_star import solve as a_star_solve_compare
 from comparator_logic.algorithm.dijkstra import solve as dijkstra_solve_compare
 from comparator_logic.algorithm.best_first import solve as best_first_solve_compare
 from comparator_logic.algorithm.uniform_cost import solve as ucs_solve_compare
+from comparator_logic.algorithm.bibfs import solve as bibfs_solve_compare
 from comparator_logic.maze.generator import generate_maze
 
 app = Flask(__name__)
@@ -41,6 +42,7 @@ ALGOS = {
     'ucs': ucs,
     'astar': astar,
     'greedy': greedy,
+    'bibfs': bibfs,
 }
 
 @app.route('/')
@@ -71,12 +73,12 @@ def solve_compare():
     start = tuple(data["start"])
     end = tuple(data["end"])
     results = [
-        get_algorithm_data("Breadth-First Search", bfs_solve_compare, maze, start, end),
-        get_algorithm_data("Depth-First Search", dfs_solve_compare, maze, start, end),
+        get_algorithm_data("Breadth-First", bfs_solve_compare, maze, start, end),
+        get_algorithm_data("Depth-First", dfs_solve_compare, maze, start, end),
         get_algorithm_data("A* Search", a_star_solve_compare, maze, start, end),
-        get_algorithm_data("Dijkstra's Algorithm", dijkstra_solve_compare, maze, start, end),
-        get_algorithm_data("Greedy Best-First Search", best_first_solve_compare, maze, start, end),
-        get_algorithm_data("Uniform Cost Search", ucs_solve_compare, maze, start, end)
+        get_algorithm_data("Uniform Cost", ucs_solve_compare, maze, start, end),
+        get_algorithm_data("Greedy Best-First", best_first_solve_compare, maze, start, end),
+        get_algorithm_data("Bidirectional BFS", bibfs_solve_compare, maze, start, end)
     ]
     return jsonify(results)
 

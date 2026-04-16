@@ -727,6 +727,14 @@
       background: var(--cell-wall);
     }
 
+    .cell.weight {
+      background: #94a3b8;
+    }
+
+    [data-theme="dark"] .cell.weight {
+      background: #475569;
+    }
+
     .cell.start {
       background: var(--go) !important;
     }
@@ -1185,10 +1193,13 @@
           <div class="a-dot" style="background:#0891b2"></div>Depth-Limited Search<span class="a-abbr">DLS</span>
         </button>
         <button class="algo-btn" id="btn-astar" onclick="sel('astar');closeMob()">
-          <div class="a-dot" style="background:#059669"></div>A* Search<span class="a-abbr">A*</span>
+          <div class="a-dot" style="background:#059669"></div>A* Search<span class="a-abbr">ASTAR</span>
         </button>
         <button class="algo-btn" id="btn-greedy" onclick="sel('greedy');closeMob()">
-          <div class="a-dot" style="background:#db2777"></div>Greedy Best-First<span class="a-abbr">GBFS</span>
+          <div class="a-dot" style="background:#db2777"></div>Greedy Best-First<span class="a-abbr">GREED</span>
+        </button>
+        <button class="algo-btn" id="btn-bibfs" onclick="sel('bibfs');closeMob()">
+          <div class="a-dot" style="background:#2563eb"></div>Bidirectional BFS<span class="a-abbr">BiBFS</span>
         </button>
       </div>
       <div class="info-panel">
@@ -1209,11 +1220,13 @@
             style="color:#059669">●</span>A*</button>
         <button class="strip-chip" id="strip-greedy" onclick="sel('greedy')"><span
             style="color:#db2777">●</span>Greedy</button>
+        <button class="strip-chip" id="strip-bibfs" onclick="sel('bibfs')"><span style="color:#2563eb">●</span>Bi-BFS</button>
       </div>
 
       <!-- Toolbar 1 -->
       <div class="toolbar">
         <button class="t-btn wall-mode" id="tool-wall" onclick="setMode('wall')">▪ Wall</button>
+        <button class="t-btn" id="tool-weight" onclick="setMode('weight')">▒ Weight</button>
         <button class="t-btn erase-mode" id="tool-erase" onclick="setMode('erase')">✕ Erase</button>
         <button class="t-btn go-mode" id="tool-start" onclick="setMode('start')">▲ Start</button>
         <button class="t-btn stop-mode" id="tool-end" onclick="setMode('end')">★ End</button>
@@ -1311,6 +1324,9 @@
             <div class="leg-sw" style="background:var(--cell-wall)"></div>Wall
           </div>
           <div class="leg">
+            <div class="leg-sw" style="background:#94a3b8"></div>Weight
+          </div>
+          <div class="leg">
             <div class="leg-sw" style="background:var(--go)"></div>Start ▲
           </div>
           <div class="leg">
@@ -1331,6 +1347,13 @@
           <button class="preset-btn" onclick="generateMaze('random')">Random walls</button>
           <button class="preset-btn" onclick="generateMaze('recursive')">Recursive division</button>
           <button class="preset-btn" onclick="generateMaze('spiral')">Spiral corridor</button>
+        </div>
+      </div>
+      
+      <div class="rp-block" id="explainer-panel" style="display: none; background: var(--paper2); border: 1px solid var(--rule); padding: 12px; margin-top: 10px;">
+        <div class="rp-head" style="color: var(--hi);">Live Explainer</div>
+        <div id="explainer-text" style="font-size: 0.85rem; color: var(--text-2); font-family: monospace; line-height: 1.4; margin-top: 5px;">
+           Waiting for algorithm...
         </div>
       </div>
 
@@ -1367,6 +1390,7 @@
       dls: { name: 'Depth-Limited Search', dot: '#0891b2', ds: 'Stack (recursive)', time: 'O(bˡ)', space: 'O(b·l)', opt: false, cmp: false, desc: 'DFS with a hard depth cutoff l. Prevents infinite loops; completeness depends on the goal sitting within the limit.', tags: ['Stack', 'Bounded', 'Depth Limit'] },
       astar: { name: 'A* Search', dot: '#059669', ds: 'Priority Queue f=g+h', time: 'O(V logV)', space: 'O(V)', opt: true, cmp: true, desc: 'Combines true cost g(n) with Manhattan heuristic h(n). Fewest nodes explored while still guaranteeing an optimal path.', tags: ['Informed', 'Heuristic', 'f=g+h', 'Optimal'] },
       greedy: { name: 'Greedy Best-First', dot: '#db2777', ds: 'Priority Queue (h only)', time: 'O(V logV)', space: 'O(V)', opt: false, cmp: false, desc: 'Races toward the goal using h(n) alone — ignores true cost. Often fast, but trades optimality for speed.', tags: ['Informed', 'Heuristic only', 'Generate & Test'] },
+      bibfs: { name: 'Bidirectional BFS', dot: '#2563eb', ds: 'Two Queues', time: 'O(b^(d/2))', space: 'O(b^(d/2))', opt: true, cmp: false, desc: 'Expands from both the start and end simultaneously. Dramatically reduces the search space to find the optimal path in unweighted grids.', tags: ['Uninformed', 'Two-Way', 'Optimal', 'Fast'] },
     };
 
     function init() {
@@ -1429,7 +1453,7 @@
       if (animating) return;
       if (mode === 'start') { startNode = [r, c]; grid[r][c] = 0; paint(); }
       else if (mode === 'end') { endNode = [r, c]; grid[r][c] = 0; paint(); }
-      else if (!spec(r, c)) { grid[r][c] = mode === 'wall' ? (grid[r][c] === 1 ? 0 : 1) : 0; paintCell(r, c); }
+      else if (!spec(r, c)) { grid[r][c] = mode === 'wall' ? (grid[r][c] === 1 ? 0 : 1) : mode === 'weight' ? (grid[r][c] === 5 ? 0 : 5) : 0; paintCell(r, c); }
     }
     function spec(r, c) { return (r === startNode[0] && c === startNode[1]) || (r === endNode[0] && c === endNode[1]); }
     function paint() { for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) paintCell(r, c); }
@@ -1438,11 +1462,13 @@
       if (r === startNode[0] && c === startNode[1]) el.classList.add('start');
       else if (r === endNode[0] && c === endNode[1]) el.classList.add('end');
       else if (grid[r][c] === 1) el.classList.add('wall');
+      else if (grid[r][c] === 5) el.classList.add('weight');
     }
 
     function setMode(m) {
       mode = m;
       document.getElementById('tool-wall').className = 't-btn wall-mode' + (m === 'wall' ? ' active' : '');
+      const tw = document.getElementById('tool-weight'); if(tw) tw.className = 't-btn' + (m === 'weight' ? ' active' : '');
       document.getElementById('tool-erase').className = 't-btn erase-mode' + (m === 'erase' ? ' active' : '');
       document.getElementById('tool-start').className = 't-btn go-mode' + (m === 'start' ? ' active' : '');
       document.getElementById('tool-end').className = 't-btn stop-mode' + (m === 'end' ? ' active' : '');
@@ -1525,6 +1551,10 @@
 
     async function animate(visited, path, stats) {
       const d = delay();
+      const explainer = document.getElementById('explainer-panel');
+      const explainerText = document.getElementById('explainer-text');
+      explainer.style.display = 'block';
+
       if (d === 0) {
         visited.forEach(([r, c]) => { if (!spec(r, c)) cells[r][c].classList.add('visited'); });
       } else {
@@ -1533,6 +1563,10 @@
           const [r, c] = visited[i];
           if (!spec(r, c)) cells[r][c].classList.add('visited');
           sv('s-nodes', i + 1); sv('ms-nodes', i + 1);
+          
+          if (i % 3 === 0) {
+              explainerText.innerText = `[${currentAlgo.toUpperCase()}] Expanding node (${r},${c}).\nNodes Traversed: ${i+1}\nCurrent Array Depth: ${visited.length - i}`;
+          }
         }
       }
       await sl(d === 0 ? 10 : 280);

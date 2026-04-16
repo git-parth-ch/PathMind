@@ -354,3 +354,71 @@ body.dark .algo-card.fullscreen {
     color: var(--ink);
 }
 
+/* Responsive Mobile Layout */
+@media (max-width: 960px) {
+    body {
+        height: auto;
+        overflow-y: auto;
+    }
+    .app-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+    .left-pane {
+        overflow: visible;
+    }
+    .right-pane {
+        width: 100%;
+        margin-top: 5px;
+    }
+    .grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+    .canvas-wrapper {
+        aspect-ratio: 1 / 1;
+    }
+    .algo-card.fullscreen {
+        inset: 10px;
+    }
+}
+
+@media (max-width: 650px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        font-size: 1.2rem;
+    }
+    .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .back-btn {
+        align-self: flex-start;
+    }
+    .controls-container {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    .speed-control {
+        justify-content: space-between;
+    }
+    .speed-control input[type="range"] {
+        flex: 1;
+        margin-left: 10px;
+    }
+    .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+    #btn-new-maze {
+        grid-column: span 2;
+    }
+}
+
