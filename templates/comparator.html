@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathMind Comparator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='comparator/style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .back-btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 6px 14px;
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border: 2px solid var(--ink);
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--btn-shadow);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="left-pane">
+            <header>
+                <div class="header-top">
+                    <div class="brand-row">
+                        <h1>PathMind Comparator</h1>
+                        <span class="pulse-dot" aria-hidden="true"></span>
+                    </div>
+                    <a href="/" class="back-btn">← Back</a>
+                </div>
+                <p>Simulating 6 intelligent pathfinding algorithms natively in your browser. (Click grids to play/pause).</p>
+                <button id="btn-theme-toggle" class="btn theme-toggle">Switch Theme</button>
+            </header>
+
+            <div class="grid-container" id="canvas-grid">
+            </div>
+
+            <div class="controls-container">
+                <div class="speed-control">
+                    <label for="speed-slider">Animation Speed:</label>
+                    <input type="range" id="speed-slider" min="1" max="150" value="8">
+                </div>
+                <div class="action-buttons">
+                    <button id="btn-start-all" class="btn primary">Resume / Play All</button>
+                    <button id="btn-stop-all" class="btn secondary">Pause All</button>
+                    <button id="btn-new-maze" class="btn accent">Generate New Maze</button>
+                </div>
+            </div>
+        </div>
+        <div class="right-pane">
+            <h2>Leaderboard</h2>
+            <div class="leaderboard-subtitle">Fastest Time & Shortest Route</div>
+            <div id="leaderboard-list">
+                <div style="color:var(--text-secondary); text-align:center;">Algorithms loading...</div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='comparator/script.js') }}"></script>
+</body>
+
+</html>
