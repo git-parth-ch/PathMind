@@ -53,6 +53,10 @@ def index():
 def comparator():
     return render_template('comparator.html')
 
+@app.route('/showcase')
+def showcase():
+    return render_template('showcase.html')
+
 @app.route("/api/generate_compare", methods=["GET"])
 def generate_compare():
     maze = generate_maze(MAZE_COLS, MAZE_ROWS)

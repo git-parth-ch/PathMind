@@ -8,6 +8,7 @@ PathMind is an advanced, high-performance pathfinding visualizer built with a sl
 
 - **Dynamic Visualization**: Watch algorithms breathe and expand across the grid with smooth micro-animations.
 - **Algorithm Comparison**: A dedicated **Comparator** view that races 6 algorithms side-by-side to compare performance and path optimality.
+- **Real-World Showcase**: An interactive, application-first view mapping algorithms to real-world uses (e.g., BFS for Social Networks, A* for GPS, DLS for Tic-Tac-Toe AI).
 - **Neo-Brutalist UI**: A high-contrast, premium design system with sharp edges and a curated color palette.
 - **Theming**: Full support for both **Light** and **Dark** modes with instant switching.
 - **Interactive Grids**: Place walls, move start/end points, and even enlarge specific algorithm views in the comparator mode.
@@ -16,9 +17,10 @@ PathMind is an advanced, high-performance pathfinding visualizer built with a sl
 
 ### Uninformed Search
 - **Breadth-First Search (BFS)**: Guarantees the shortest path on unweighted grids.
-- **Depth-First Search (DFS)**: explores paths deeply; not optimal but light on resources.
+- **Depth-First Search (DFS)**: Explores paths deeply; not optimal but light on resources.
 - **Uniform Cost Search (UCS)**: Dijkstra's algorithm for grids; optimal for weighted movement.
 - **Depth-Limited Search (DLS)**: DFS with a hard depth cutoff.
+- **Bidirectional BFS**: Runs two simultaneous searches from start and goal, meeting in the middle for exponential speedups.
 
 ### Informed Search
 - **A* Search**: The industry standard! Uses heuristics to find the shortest path efficiently.
@@ -73,7 +75,7 @@ Pathmind/
 ├── src/                # Core algorithm implementations
 ├── comparator_logic/   # Multi-grid racing logic
 ├── static/             # Assets (CSS, JS, Fonts)
-├── templates/          # HTML Templates
+├── templates/          # HTML Templates (index, showcase, comparator)
 └── vercel.json         # Deployment configuration
 ```
 

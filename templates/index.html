@@ -1162,6 +1162,10 @@
         <span class="theme-icon">🚀</span>
         <span>Compare Algos</span>
       </a>
+      <a href="/showcase" class="hdr-btn" style="text-decoration:none; color:#fbbf24; border-left:none;">
+        <span class="theme-icon">🎯</span>
+        <span>Showcase</span>
+      </a>
       <button class="hdr-btn menu-hdr-btn" onclick="toggleMenu()">☰ Menu</button>
       <button class="hdr-btn" onclick="toggleTheme()">
         <span class="theme-icon" id="theme-icon">🌙</span>
@@ -1220,7 +1224,8 @@
             style="color:#059669">●</span>A*</button>
         <button class="strip-chip" id="strip-greedy" onclick="sel('greedy')"><span
             style="color:#db2777">●</span>Greedy</button>
-        <button class="strip-chip" id="strip-bibfs" onclick="sel('bibfs')"><span style="color:#2563eb">●</span>Bi-BFS</button>
+        <button class="strip-chip" id="strip-bibfs" onclick="sel('bibfs')"><span
+            style="color:#2563eb">●</span>Bi-BFS</button>
       </div>
 
       <!-- Toolbar 1 -->
@@ -1349,11 +1354,13 @@
           <button class="preset-btn" onclick="generateMaze('spiral')">Spiral corridor</button>
         </div>
       </div>
-      
-      <div class="rp-block" id="explainer-panel" style="display: none; background: var(--paper2); border: 1px solid var(--rule); padding: 12px; margin-top: 10px;">
+
+      <div class="rp-block" id="explainer-panel"
+        style="display: none; background: var(--paper2); border: 1px solid var(--rule); padding: 12px; margin-top: 10px;">
         <div class="rp-head" style="color: var(--hi);">Live Explainer</div>
-        <div id="explainer-text" style="font-size: 0.85rem; color: var(--text-2); font-family: monospace; line-height: 1.4; margin-top: 5px;">
-           Waiting for algorithm...
+        <div id="explainer-text"
+          style="font-size: 0.85rem; color: var(--text-2); font-family: monospace; line-height: 1.4; margin-top: 5px;">
+          Waiting for algorithm...
         </div>
       </div>
 
@@ -1468,7 +1475,7 @@
     function setMode(m) {
       mode = m;
       document.getElementById('tool-wall').className = 't-btn wall-mode' + (m === 'wall' ? ' active' : '');
-      const tw = document.getElementById('tool-weight'); if(tw) tw.className = 't-btn' + (m === 'weight' ? ' active' : '');
+      const tw = document.getElementById('tool-weight'); if (tw) tw.className = 't-btn' + (m === 'weight' ? ' active' : '');
       document.getElementById('tool-erase').className = 't-btn erase-mode' + (m === 'erase' ? ' active' : '');
       document.getElementById('tool-start').className = 't-btn go-mode' + (m === 'start' ? ' active' : '');
       document.getElementById('tool-end').className = 't-btn stop-mode' + (m === 'end' ? ' active' : '');
@@ -1563,9 +1570,9 @@
           const [r, c] = visited[i];
           if (!spec(r, c)) cells[r][c].classList.add('visited');
           sv('s-nodes', i + 1); sv('ms-nodes', i + 1);
-          
+
           if (i % 3 === 0) {
-              explainerText.innerText = `[${currentAlgo.toUpperCase()}] Expanding node (${r},${c}).\nNodes Traversed: ${i+1}\nCurrent Array Depth: ${visited.length - i}`;
+            explainerText.innerText = `[${currentAlgo.toUpperCase()}] Expanding node (${r},${c}).\nNodes Traversed: ${i + 1}\nCurrent Array Depth: ${visited.length - i}`;
           }
         }
       }

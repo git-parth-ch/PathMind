@@ -156,3 +156,11 @@ cython_debug/
 # OS
 .DS_Store
 Thumbs.db
+
+# Scratch / Agent Files
+scratch_*.txt
+*.webm
+*.webp
+*.mp4
+*.png
+*.jpg
