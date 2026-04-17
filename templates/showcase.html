@@ -1139,7 +1139,11 @@
         <div class="demo-hdr">
           <div class="demo-bar"></div>
           <div>
-            <div class="demo-title">Uniform Cost Search</div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="demo-title">Uniform Cost Search</div>
+              <a href="https://six-degrees-of-air-travel.onrender.com" target="_blank" class="cb primary"
+                style="text-decoration:none; padding:3px 8px; font-size:9px; border-radius:3px;">Flight Routes ↗</a>
+            </div>
             <div class="demo-ctx">Cheapest Flight Finder — UCS always expands the lowest cumulative cost, exactly how
               Google Flights routes work</div>
           </div>
@@ -1251,7 +1255,12 @@
         <div class="demo-hdr">
           <div class="demo-bar"></div>
           <div>
-            <div class="demo-title">A* Search</div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="demo-title">A* Search</div>
+              <a href="https://path-mind-app.vercel.app/" target="_blank" class="cb primary"
+                style="text-decoration:none; padding:3px 8px; font-size:9px; border-radius:3px;">Map Implementation
+                ↗</a>
+            </div>
             <div class="demo-ctx">City Delivery Route — A* uses f=g+h to find the optimal path through weighted terrain,
               exactly how GPS navigation works</div>
           </div>
@@ -1279,7 +1288,8 @@
           <button class="cb" onclick="astarStep()">⏭ Step</button>
           <button class="cb" onclick="astarReset()">↺ Reset</button>
           <button class="cb" onclick="astarGenerate()">⚡ New Map</button>
-          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click Start/End to move them. Click empty cell for walls.</div>
+          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click Start/End to move them.
+            Click empty cell for walls.</div>
           <div class="spd-wrap">
             <span class="spd-lbl" id="astar-sl">Med</span>
             <input type="range" id="astar-spd" min="1" max="100" value="50" oninput="updateSpd('astar')">
@@ -1308,7 +1318,8 @@
           <div class="exp-body">A* combines actual cost <strong>g(n)</strong> (distance traveled) and heuristic
             <strong>h(n)</strong> (Manhattan distance to goal) into <strong>f(n) = g + h</strong>. This makes it smarter
             than UCS — it prioritizes nodes closer to the goal. GPS systems, game NPCs, and robotics all use A* for its
-            speed and optimality guarantee.</div>
+            speed and optimality guarantee.
+          </div>
         </div>
       </div>
 
@@ -1342,14 +1353,20 @@
         <div class="controls">
           <button class="cb primary" id="greedy-play" onclick="greedyPlay()">▶ Run Both</button>
           <button class="cb" onclick="greedyReset()">↺ Reset / New Maze</button>
-          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click Start/End to move. Click empty cell for walls.</div>
+          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click Start/End to move. Click
+            empty cell for walls.</div>
           <div class="spd-wrap">
             <span class="spd-lbl" id="greedy-sl">Med</span>
             <input type="range" id="greedy-spd" min="1" max="100" value="50" oninput="updateSpd('greedy')">
           </div>
         </div>
-        <div id="greedy-trap-explainer" style="display:none; font-weight:600; color:var(--text); border:1px dashed #ef4444; padding:8px 12px; margin: 0 24px 12px 24px; background:rgba(239,68,68,0.05); border-radius:4px; font-size:11.5px; line-height:1.4;">
-          <strong style="color:#ef4444;">🚨 WHY IT'S WRONG:</strong> Because Greedy only tracks <strong>h</strong> (visible raw distance to the goal) without remembering how far it just walked, it blindly ignores the walls enclosing it. It mathematically traps itself at the red marker because every available step away from the wall forces <strong>h</strong> to increase, causing it to backtrack endlessly in a local minimum! A* safely avoids this by calculating total journey cost.
+        <div id="greedy-trap-explainer"
+          style="display:none; font-weight:600; color:var(--text); border:1px dashed #ef4444; padding:8px 12px; margin: 0 24px 12px 24px; background:rgba(239,68,68,0.05); border-radius:4px; font-size:11.5px; line-height:1.4;">
+          <strong style="color:#ef4444;">🚨 WHY IT'S WRONG:</strong> Because Greedy only tracks <strong>h</strong>
+          (visible raw distance to the goal) without remembering how far it just walked, it blindly ignores the walls
+          enclosing it. It mathematically traps itself at the red marker because every available step away from the wall
+          forces <strong>h</strong> to increase, causing it to backtrack endlessly in a local minimum! A* safely avoids
+          this by calculating total journey cost.
         </div>
         <div class="stats-bar">
           <div class="sc">
@@ -1409,7 +1426,8 @@
           <button class="cb primary" id="bidir-play" onclick="bidirPlay()">▶ Play</button>
           <button class="cb" onclick="bidirStep()">⏭ Step</button>
           <button class="cb" onclick="bidirReset()">↺ Reset</button>
-          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click any two nodes to change Sender/Receiver</div>
+          <div style="font-size:9px;color:var(--text3);padding:0 8px;font-weight:700">Click any two nodes to change
+            Sender/Receiver</div>
           <div class="spd-wrap">
             <span class="spd-lbl" id="bidir-sl">Med</span>
             <input type="range" id="bidir-spd" min="1" max="100" value="50" oninput="updateSpd('bidir')">
@@ -2263,7 +2281,7 @@
       const parts = cell.id.split('-');
       if (parts.length < 3) return;
       const rr = +parts[1], cc = +parts[2];
-      
+
       if (astarMoving) {
         if (astarGrid[rr][cc] !== 1) { // Not a wall
           if (astarMoving === 'start') astarStart = [rr, cc];
@@ -2273,7 +2291,7 @@
         }
         return;
       }
-      
+
       if (rr === astarStart[0] && cc === astarStart[1]) {
         astarMoving = 'start';
         cell.style.boxShadow = '0 0 0 2px var(--go) inset';
@@ -2321,7 +2339,7 @@
           const el = document.getElementById(`astar-${step.r}-${step.c}`);
           if (el && !el.classList.contains('start') && !el.classList.contains('end')) {
             el.classList.add('visited');
-            if(!el.querySelector('.gc-fcost')) {
+            if (!el.querySelector('.gc-fcost')) {
               el.innerHTML += `<span class="gc-label gc-fcost" style="font-size:6px;bottom:1px;right:2px;top:auto;left:auto;color:rgba(255,255,255,0.85);font-weight:800">${step.f}</span>`;
             }
           }
@@ -2361,10 +2379,10 @@
       for (let r = 3; r <= 10; r++) greedyGridData[r][10] = 1;
       for (let c = 5; c <= 10; c++) greedyGridData[3][c] = 1;
       for (let c = 5; c <= 10; c++) greedyGridData[10][c] = 1;
-      
+
       greedyStart = [7, 7]; // Inside the trap
       greedyEnd = [7, 14];  // Outside the trap to the right
-      
+
       greedyReset(); greedyDraw();
     }
 
@@ -2419,7 +2437,7 @@
         greedyClear();
       }
     }
-    
+
     document.getElementById('greedy-grid').addEventListener('click', greedyGridClick);
     document.getElementById('astar2-grid').addEventListener('click', greedyGridClick);
 
@@ -2487,7 +2505,7 @@
       greedyAnim1.load(steps1, (step) => {
         if (step.type === 'visit') {
           g1++; gVisited.add(step.r + ',' + step.c); gMeta[step.r + ',' + step.c] = step.h;
-          
+
           if (step.h > minH && !gTrapNode) { gTrapNode = step.r + ',' + step.c; }
           if (step.h < minH) minH = step.h;
 
@@ -2499,7 +2517,7 @@
               el.innerHTML += `<div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#ef4444;color:#fff;font-size:9px;padding:2px 4px;font-weight:bold;border-radius:4px;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,0.5);pointer-events:none;">WRONG STEP</div>`;
               document.getElementById('greedy-trap-explainer').style.display = 'block';
             }
-            if(!el.querySelector('.gc-fcost')) {
+            if (!el.querySelector('.gc-fcost')) {
               el.innerHTML += `<span class="gc-label gc-fcost" style="font-size:6.5px;bottom:1px;right:2px;top:auto;left:auto;color:rgba(255,255,255,0.85);font-weight:700">${step.h}</span>`;
             }
           }
@@ -2512,7 +2530,7 @@
           const el = document.getElementById(`astar2-grid-${step.r}-${step.c}`);
           if (el && !el.classList.contains('start') && !el.classList.contains('end')) {
             el.classList.add('visited');
-            if(!el.querySelector('.gc-fcost')) {
+            if (!el.querySelector('.gc-fcost')) {
               el.innerHTML += `<span class="gc-label gc-fcost" style="font-size:6.5px;bottom:1px;right:2px;top:auto;left:auto;color:rgba(255,255,255,0.85);font-weight:700">${step.f}</span>`;
             }
           }
@@ -2677,7 +2695,7 @@
         ctx.fillStyle = '#06b6d4'; ctx.font = 'bold 10px Plus Jakarta Sans';
         ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText('MET!', x, y - R - 2);
       }
-      
+
       if (bdTgt === -1) {
         ctx.fillStyle = getCssVar('--text3'); ctx.font = '12px Plus Jakarta Sans'; ctx.textAlign = 'center';
         ctx.fillText('Click the receiver node', W / 2, H - 12);
