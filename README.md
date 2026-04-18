@@ -1,52 +1,56 @@
 # PathMind 🚀
 
-PathMind is an advanced, high-performance pathfinding visualizer built with a sleek **Neo-Brutalist** aesthetic. It provides a real-time visualization of how various search algorithms explore complex grids and find optimal paths.
+PathMind is an advanced, high-performance pathfinding visualizer built with a sleek **Neo-Brutalist** aesthetic. It provides a real-time visualization of how various search algorithms explore complex grids and find optimal paths, blending educational value with premium design.
 
-![PathMind Screenshot](https://via.placeholder.com/800x450/0f0e0d/f2efe8?text=PathMind+Visualizer)
+![PathMind Banner](file:///C:/Users/parth/.gemini/antigravity/brain/c49a796a-1048-42dd-b026-6f248df9e900/pathmind_banner_1776520873609.png)
 
-## ✨ Features
+## ✨ Key Features
 
-- **Dynamic Visualization**: Watch algorithms breathe and expand across the grid with smooth micro-animations.
-- **Algorithm Comparison**: A dedicated **Comparator** view that races 6 algorithms side-by-side to compare performance and path optimality.
-- **Real-World Showcase**: An interactive, application-first view mapping algorithms to real-world uses (e.g., BFS for Social Networks, A* for GPS, DLS for Tic-Tac-Toe AI).
-- **Neo-Brutalist UI**: A high-contrast, premium design system with sharp edges and a curated color palette.
-- **Theming**: Full support for both **Light** and **Dark** modes with instant switching.
-- **Interactive Grids**: Place walls, move start/end points, and even enlarge specific algorithm views in the comparator mode.
+- **🏎️ Algorithm Comparator**: A dedicated racing view where you can watch 6 algorithms (BFS, DFS, A*, UCS, Greedy, Bi-BFS) compete side-by-side on identical mazes to compare speed, efficiency, and optimality.
+- **🌍 Real-World Showcase**: An interactive, application-first view mapping search algorithms to their real-world counterparts (e.g., BFS for Social Networks, A* for GPS, DLS for Tic-Tac-Toe AI).
+- **🏗️ Neo-Brutalist Design**: A high-contrast, premium interface featuring sharp edges, bold typography (Plus Jakarta Sans), and a curated color palette for a truly modern feel.
+- **⚡ High-Speed Execution**: Backend-driven pathfinding logic implemented in Python for precision, bridged with smooth HTML5 Canvas animations.
+- **🛠️ Interactive Sandbox**: Paint walls, drag start/end markers, adjust search limits, and watch the algorithms adapt in real-time.
+- **🌙 Theme Support**: Seamless switching between high-contrast Light and Dark modes.
 
-## 🧠 Supported Algorithms
+## 🧠 Search Algorithms
 
-### Uninformed Search
-- **Breadth-First Search (BFS)**: Guarantees the shortest path on unweighted grids.
-- **Depth-First Search (DFS)**: Explores paths deeply; not optimal but light on resources.
-- **Uniform Cost Search (UCS)**: Dijkstra's algorithm for grids; optimal for weighted movement.
-- **Depth-Limited Search (DLS)**: DFS with a hard depth cutoff.
-- **Bidirectional BFS**: Runs two simultaneous searches from start and goal, meeting in the middle for exponential speedups.
+PathMind implements a wide array of search strategies, categorized by their approach:
 
-### Informed Search
-- **A* Search**: The industry standard! Uses heuristics to find the shortest path efficiently.
-- **Greedy Best-First Search**: Focuses solely on the goal; fast but not always optimal.
+### 🧩 Uninformed Search (Blind)
+- **Breadth-First Search (BFS)**: Guaranteed to find the shortest path in unweighted grids.
+- **Depth-First Search (DFS)**: Prioritizes depth over optimality; efficient in memory but rarely shortest.
+- **Uniform Cost Search (UCS)**: Dijkstra's algorithm optimized for grid costs.
+- **Depth-Limited Search (DLS)**: A controlled version of DFS with a hard depth cutoff.
+- **Bidirectional BFS**: Meets in the middle for exponential performance gains in large spaces.
 
-## 🛠️ Tech Stack
+### 🎯 Informed Search (Heuristic-based)
+- **A* Search**: The "Gold Standard"—uses Manhattan heuristics to find optimal paths with minimal exploration.
+- **Greedy Best-First Search**: Focused entirely on the goal; blazing fast but can get trapped in local optima.
+- **IDA* (Iterative Deepening A*)**: Explores paths with increasing cost limits, combining the optimality of A* with the memory efficiency of DFS.
 
-- **Backend**: Python / Flask
-- **Frontend**: Vanilla JavaScript, HTML5 Canvas, CSS3
-- **Design**: Syne & Plus Jakarta Sans typography, Neo-Brutalist CSS variables
+## 🛠️ Technical Stack
+
+- **Backend**: Python 3.x / Flask
+- **Frontend**: Vanilla JavaScript (ES6+), HTML5 Canvas, CSS3 Custom Properties
+- **Logic**: Modular pathfinding library in `src/` supporting weighted and unweighted grids.
+- **Styling**: Neo-Brutalist framework using `Plus Jakarta Sans` & `Syne`.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.8+
-- pip (Python package manager)
+- Python 3.8 or higher
+- `pip` (Python package manager)
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/pathmind.git
-   cd pathmind
+   git clone https://github.com/yourusername/Pathmind.git
+   cd Pathmind
    ```
 
-2. Create and activate a virtual environment:
+2. **Set up a Virtual Environment** (recommended):
    ```bash
    python -m venv .venv
    # Windows:
@@ -55,33 +59,40 @@ PathMind is an advanced, high-performance pathfinding visualizer built with a sl
    source .venv/bin/activate
    ```
 
-3. Install dependencies:
+3. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Run the application:
+4. **Run the App**:
    ```bash
    python app.py
    ```
 
-5. Open your browser and navigate to `http://127.0.0.1:5000`.
+5. **Explore**:
+   Navigate to `http://127.0.0.1:5000` in your browser.
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
 ```text
 Pathmind/
-├── app.py              # Main Flask entry point
-├── src/                # Core algorithm implementations
-├── comparator_logic/   # Multi-grid racing logic
-├── static/             # Assets (CSS, JS, Fonts)
-├── templates/          # HTML Templates (index, showcase, comparator)
-└── vercel.json         # Deployment configuration
+├── app.py              # Flask Application Entry Point
+├── src/                # Core Algorithm Implementations (A*, BFS, etc.)
+├── comparator_logic/   # Multi-grid maze generation and racing logic
+├── static/             # Frontend assets (CSS, JS)
+├── templates/          # HTML Templates (Sandbox, Showcase, Comparator)
+└── requirements.txt    # Project dependencies
 ```
+
+## 🤝 Special Thanks
+
+A huge thank you to **[paratesai316](https://github.com/paratesai316)** for the co-development of key features, including:
+- **Real Map Implementation**: Integration of geographical coordination and grid-to-map mapping.
+- **Flight Search**: Development of specialized pathfinding logic for airline routing and global city discovery.
 
 ## 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-Created by [Parth](https://github.com/yourusername) 🚀
+Developed with ❤️ by [Parth](https://github.com/git-parth-ch) 🚀
