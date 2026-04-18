@@ -1,0 +1,34 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&amp;display=swap');
+      .logo-text {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 100px;
+        fill: #FFFFFF;
+        letter-spacing: -4px;
+      }
+      .logo-dot {
+        fill: #e8380d;
+      }
+    </style>
+  </defs>
+
+  <!-- Neo-Brutalist Header Background -->
+  <rect width="800" height="200" fill="#0f0e0d" />
+  
+  <!-- Subtle Grid Texture (Matching the aesthetic) -->
+  <path d="M 0 0 L 800 0 M 0 40 L 800 40 M 0 80 L 800 80 M 0 120 L 800 120 M 0 160 L 800 160 M 0 200 L 800 200 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200 M 200 0 L 200 200 M 240 0 L 240 200 M 280 0 L 280 200 M 320 0 L 320 200 M 360 0 L 360 200 M 400 0 L 400 200 M 440 0 L 440 200 M 480 0 L 480 200 M 520 0 L 520 200 M 560 0 L 560 200 M 600 0 L 600 200 M 640 0 L 640 200 M 680 0 L 680 200 M 720 0 L 720 200 M 760 0 L 760 200" 
+        stroke="#FFFFFF" stroke-width="0.5" opacity="0.05" />
+
+  <!-- Logo Group -->
+  <g transform="translate(150, 130)">
+    <text class="logo-text">PathMind</text>
+    <!-- The signature pulsing dot found in the website header -->
+    <circle class="logo-dot" cx="505" cy="-55" r="12">
+      <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0.6;1" dur="3s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>

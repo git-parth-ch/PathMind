@@ -1,8 +1,14 @@
 # PathMind 🚀
 
-PathMind is an advanced, high-performance pathfinding visualizer built with a sleek **Neo-Brutalist** aesthetic. It provides a real-time visualization of how various search algorithms explore complex grids and find optimal paths, blending educational value with premium design.
+PathMind is an advanced, high-performance pathfinding visualizer built with a striking **Neo-Brutalist** aesthetic. It allows you to explore and compare various search algorithms—ranging from classic **A*** and **Dijkstra** to advanced **Bidirectional BFS** and **IDA***—through three interactive lenses:
 
-![PathMind Banner](file:///C:/Users/parth/.gemini/antigravity/brain/c49a796a-1048-42dd-b026-6f248df9e900/pathmind_banner_1776520873609.png)
+1. **Sandbox Mode**: Manually build grids, place walls, and watch algorithms solve paths in real-time.
+2. **Algorithm Comparator**: A "racing" view where multiple algorithms compete on the same maze to compare speed and efficiency.
+3. **Real-World Showcase**: Interactive demonstrations of how these algorithms power everyday tech like GPS navigation, flight routing, and social network analysis.
+
+<p align="center">
+  <img src="static/pathmind_logo.svg" alt="PathMind Logo" width="800">
+</p>
 
 ## ✨ Key Features
 
